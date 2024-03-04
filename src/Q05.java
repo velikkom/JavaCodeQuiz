@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Q05 {
 
     /*
@@ -5,7 +8,28 @@ public class Q05 {
       Girilen String bir ifadenin harfleri yer değiştirilerek oluşturulabilecek anlamlı anlamsız bütün kelimeleri alt alta gösteren bir program yazınız
      */
 
+    public static void main(String[] args) {
+        String word = "Veli";
 
+        System.out.println(findAllPermutation(word));
+    }
 
+    private static List<String> findAllPermutation(String str) {
+
+        List<String> permutations = new ArrayList<>();
+        if (str == null || str.isEmpty()) {
+            permutations.add("");
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            String remainingChars = str.substring(0, i) + str.substring(i + 1);
+            List<String> subPermutation = findAllPermutation(remainingChars);
+            for (String w : subPermutation) {
+                permutations.add(c + w);
+            }
+        }
+        return permutations;
+    }
 
 }
